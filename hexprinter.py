@@ -34,7 +34,13 @@ def main(options, args):
     for arg in args:
         stderr.write('{}\n'.format(arg))
         with open(arg, 'rb') as f:
-            print print_bytes(f.read(), options.width)
+            has_bytes = True
+            while has_bytes:
+                to_print = f.read(options.width)
+                if to_print:
+                    print print_bytes(to_print, options.width)
+                else:
+                    has_bytes = False
 
     new_bytes = stdin.read(options.width)
     while new_bytes:
